@@ -1056,6 +1056,7 @@ const quizData = [
     ]
 }];
 
+
 let currentQuestionIndex = 0;
 let answers = new Array(quizData.length).fill(null);
 let timeLeft = 60 * 60;
@@ -1080,6 +1081,7 @@ const elHintIcon = document.getElementById('hint-icon');
 const elTimer = document.getElementById('timer-display');
 const elCorrectCount = document.getElementById('correct-count');
 const elWrongCount = document.getElementById('wrong-count');
+const elUnansweredDots = document.getElementById('unanswered-dots');
 
 function init() {
     const total = quizData.length;
@@ -1096,6 +1098,30 @@ function init() {
         if (val >= 1 && val <= total) jumpToQuestion(val - 1);
         else e.target.value = currentQuestionIndex + 1;
     });
+}
+
+function renderUnansweredDots() {
+    elUnansweredDots.innerHTML = '';
+    let hasUnanswered = false;
+    
+    answers.forEach((ans, index) => {
+        if (ans === null) {
+            hasUnanswered = true;
+            const dot = document.createElement('div');
+            dot.className = `nav-dot ${index === currentQuestionIndex ? 'active' : ''}`;
+            dot.innerText = index + 1;
+            // Add unique ID to target it for animations later
+            dot.id = `nav-dot-${index}`;
+            dot.onclick = () => jumpToQuestion(index);
+            elUnansweredDots.appendChild(dot);
+        }
+    });
+    
+    if (!hasUnanswered) {
+        elUnansweredDots.style.display = 'none';
+    } else {
+        elUnansweredDots.style.display = 'flex';
+    }
 }
 
 function loadQuestion() {
@@ -1125,6 +1151,9 @@ function loadQuestion() {
     } else {
         elHintContainer.style.display = 'block';
     }
+    
+    // Refresh the dots to ensure the active state moves correctly
+    renderUnansweredDots();
     
     elOptionsContainer.innerHTML = '';
     const letters = ['A', 'B', 'C', 'D'];
@@ -1201,6 +1230,17 @@ function selectOption(selectedIndex) {
     }
     
     elHintContainer.style.display = 'none';
+    
+    // Animate the specific dot popping out, then re-render
+    const activeDot = document.getElementById(`nav-dot-${currentQuestionIndex}`);
+    if (activeDot) {
+        activeDot.classList.add('pop-out');
+        setTimeout(() => {
+            renderUnansweredDots();
+        }, 300); // Matches CSS transition duration
+    } else {
+        renderUnansweredDots();
+    }
     
     const options = document.querySelectorAll('.option-card');
     options.forEach((opt, idx) => {
