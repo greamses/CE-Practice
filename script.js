@@ -810,7 +810,7 @@ const quizData = [
 },
 {
     question: "Calculate the volume of a cuboid \\( 5 \\text{ cm} \\times 2 \\text{ cm} \\times 3 \\text{ cm} \\).",
-    image: null,
+    image: './cuboid.svg',
     options: [
         "\\( 10 \\text{ cm}^3 \\)",
         "\\( 30 \\text{ cm}^3 \\)",
@@ -827,7 +827,7 @@ const quizData = [
 },
 {
     question: "Find the surface area of a cube with a side length of \\( 4 \\text{ cm} \\).",
-    image: null,
+    image: './cube.svg',
     options: [
         "\\( 24 \\text{ cm}^2 \\)",
         "\\( 28 \\text{ cm}^2 \\)",
@@ -844,7 +844,7 @@ const quizData = [
 },
 {
     question: "The hypotenuse of a right-angled triangle with sides \\( 6 \\text{ cm} \\) and \\( 8 \\text{ cm} \\) is:",
-    image: null,
+    image: './pyt.svg',
     options: [
         "\\( 10 \\text{ cm} \\)",
         "\\( 14 \\text{ cm} \\)",
@@ -862,7 +862,7 @@ const quizData = [
 },
 {
     question: "Calculate the area of a semi-circle with radius \\( 7 \\text{ cm} \\) (use \\( \\pi = \\frac{22}{7} \\)).",
-    image: null,
+    image: './semi-circle.svg',
     options: [
         "\\( 616 \\text{ cm}^2 \\)",
         "\\( 77 \\text{ cm}^2 \\)",
