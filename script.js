@@ -1109,8 +1109,6 @@ function renderUnansweredDots() {
             hasUnanswered = true;
             const dot = document.createElement('div');
             dot.className = `nav-dot ${index === currentQuestionIndex ? 'active' : ''}`;
-            dot.innerText = index + 1;
-            // Add unique ID to target it for animations later
             dot.id = `nav-dot-${index}`;
             dot.onclick = () => jumpToQuestion(index);
             elUnansweredDots.appendChild(dot);

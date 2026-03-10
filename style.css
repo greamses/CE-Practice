@@ -150,8 +150,8 @@
     }
     
     .nav-dot {
-        width: 32px;
-        height: 32px;
+        width: 15px;
+        height: 15px;
         border-radius: 50%;
         background-color: var(--option-bg);
         border: 1px solid var(--border-color);
@@ -449,8 +449,8 @@
         }
         
         .nav-dot {
-            width: 28px;
-            height: 28px;
+            width: 12px;
+            height: 12px;
             font-size: 12px;
         }
     }
