@@ -3,82 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spring Term Exam Practice</title>
+    <title>Prep Portal | 2026</title>
     
-    <!-- Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    
-    <!-- MathJax for Math Formatting -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syne:wght@800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="./style.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --app-bg: #f3f4f6;
+            --primary-blue: #0b57d0;
+            --text-main: #1f1f1f;
+            --text-light: #444746;
+            --border-color: #e0e2e0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        header { padding: 80px 5%; }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive Grid Logic */
+        .main-content { border-top: 2px solid var(--text-main); }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .card {
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 40px;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            background: var(--bg-color);
+            transition: background 0.4s ease;
+        }
+
+        /* Hover animation remains punchy */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 0;
+            background: var(--primary-blue);
+            transition: height 0.3s ease;
+        }
+        .card:hover::before { height: 100%; }
+        .card:hover { color: white; }
+
+        .card-inner { position: relative; z-index: 1; }
+        .card-num { font-family: 'Syne', sans-serif; opacity: 0.3; display: block; margin-bottom: 20px; }
+        .card h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 10px; }
+
+        /* Media Query for Mobile Optimization */
+        @media (max-width: 600px) {
+            header { padding: 40px 5%; }
+            .card { padding: 30px; }
+            h1 { margin-bottom: 1rem; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="app-container">
-    <!-- Header -->
-    <div class="header">
-        <div class="title-group">
-            <span class="material-symbols-outlined" style="color: #ea4335;"></span>
-            Exam Practice
+    <header>
+        <h1>The Exam<br>Archive.</h1>
+    </header>
+
+    
+    <main class="main-content">
+        <div class="grid">
+            <a href="#" class="card">
+                <div class="card-inner">
+                    <span class="card-num">01</span>
+                    <h2>Common Entrance</h2>
+                    <p>National baseline assessments for secondary transition.</p>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-inner">
+                    <span class="card-num">02</span>
+                    <h2>Cambridge Exam</h2>
+                    <p>International standard papers for primary foundation learners.</p>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-inner">
+                    <span class="card-num">03</span>
+                    <h2>Grade 4 Spring</h2>
+                    <p>Second term revision modules for Year 4 students.</p>
+                </div>
+            </a>
+            <a href="./Grade-5-Exam/index.html" class="card">
+                <div class="card-inner">
+                    <span class="card-num">04</span>
+                    <h2>Grade 5 Spring</h2>
+                    <p>Intensive preparatory sets for Year 5 promotional exams.</p>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-inner">
+                    <span class="card-num">05</span>
+                    <h2>TULIP Questions</h2>
+                    <p>Exclusive archive for TULIP scholarship entrance.</p>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-inner">
+                    <span class="card-num">06</span>
+                    <h2>Scholastic Prep</h2>
+                    <p>Elite-level competition drills for academic decathlons.</p>
+                </div>
+            </a>
         </div>
-        <div class="header-controls">
-            <div class="score-tracker">
-                <span class="score-pill score-correct"><span class="material-symbols-outlined"></span> <span id="correct-count">0</span></span>
-                <span class="score-pill score-wrong"><span class="material-symbols-outlined">close</span> <span id="wrong-count">0</span></span>
-            </div>
-            <div class="timer-badge">
-                <span class="material-symbols-outlined">timer</span>
-                <span id="timer-display">60:00</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation Bar -->
-    <div class="nav-bar">
-        <input type="range" id="q-slider" min="1" max="1" value="1">
-        <input type="number" id="q-input" min="1" max="1" value="1">
-        <div class="q-counter"><span id="current-q-text">1</span> / <span id="total-q-text">0</span></div>
-    </div>
-
-    <!-- Unanswered Dots Container -->
-    <div class="unanswered-dots-container" id="unanswered-dots">
-        <!-- Dots rendered via JS -->
-    </div>
-
-    <!-- Question -->
-    <div class="question-area">
-        <div class="question-num"><span id="q-number-display">1</span>.</div>
-        <div class="question-body">
-            <div class="question-text" id="question-text">Loading question...</div>
-            <img id="question-image" class="question-image hidden" src="" alt="Question illustration">
-        </div>
-    </div>
-
-    <!-- Options -->
-    <div class="options-container" id="options-container">
-        <!-- Options generated by JS -->
-    </div>
-
-    <!-- Hint -->
-    <div class="hint-container" id="hint-container">
-        <button class="hint-btn" onclick="toggleHint()">
-            Show hint <span class="material-symbols-outlined" id="hint-icon"></span>
-        </button>
-        <div class="hint-content hidden" id="hint-content">
-            <span class="material-symbols-outlined" style="color: #fbbc04;"></span>
-            <div id="hint-text"></div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer-controls">
-        <button class="btn btn-outline" id="btn-prev" onclick="changeQuestion(-1)">Back</button>
-        <button class="btn btn-primary" id="btn-next" onclick="changeQuestion(1)">Next</button>
-    </div>
-</div>
-
-<script src="./main.js"></script>
+    </main>
 </body>
 </html>
