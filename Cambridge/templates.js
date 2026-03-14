@@ -18,10 +18,10 @@ export function renderQuestionsHTML(svgs) {
                         <div class="legend">${svgs.svg1} equals \\(10\\) children</div>
                     </div>
                     <div class="tools-bank">
-                        <span style="font-size:0.9rem; font-weight:bold;">Tap to add:</span>
+                        <span style="font-size:1.3rem; font-weight:bold; border:none;">Tap</span>
                         <button type="button" class="icon-btn" id="add-full" title="10 children">${svgs.svg1}</button>
                         <button type="button" class="icon-btn" id="add-half" title="5 children">${svgs.svg2}</button>
-                        <button type="button" id="clear-peaches" class="secondary-btn">Clear Row</button>
+                        <button type="button" id="clear-peaches" class="secondary-btn">Clear</button>
                     </div>
                 </div>
                 <div class="question-content">
