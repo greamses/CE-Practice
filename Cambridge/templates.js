@@ -19,8 +19,8 @@ export function renderQuestionsHTML(svgs) {
                     </div>
                     <div class="tools-bank">
                         <span style="font-size:1.3rem; font-weight:bold; border:none;">Tap</span>
-                        <button type="button" class="icon-btn" id="add-full" title="10 children">${svgs.svg1}</button>
-                        <button type="button" class="icon-btn" id="add-half" title="5 children">${svgs.svg2}</button>
+                        <button type="button" class="icon-btn" id="add-full" title="10 children" style="border:none; scale:1.5;">${svgs.svg1}</button>
+                        <button type="button" class="icon-btn" id="add-half" style="border:none; scale:1.5;" title="5 children">${svgs.svg2}</button>
                         <button type="button" id="clear-peaches" class="secondary-btn">Clear</button>
                     </div>
                 </div>
