@@ -12,11 +12,11 @@
     <style>
         :root {
             --bg-color: #ffffff;
-            --app-bg: #f3f4f6;
             --primary-blue: #0b57d0;
             --text-main: #1f1f1f;
             --text-light: #444746;
             --border-color: #e0e2e0;
+            --cb: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +26,11 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
+
+        body.active { opacity: 1; }
 
         header { padding: 80px 5%; }
 
@@ -38,7 +42,15 @@
             margin-bottom: 2rem;
         }
 
-        /* Responsive Grid Logic */
+        /* Character Animation */
+        .char-wrapper { display: inline-block; overflow: hidden; vertical-align: bottom; }
+        .char {
+            display: inline-block;
+            transform: translateY(110%);
+            transition: transform 1s var(--cb);
+        }
+        .active .char { transform: translateY(0); }
+
         .main-content { border-top: 2px solid var(--text-main); }
         .grid {
             display: grid;
@@ -53,84 +65,125 @@
             color: inherit;
             position: relative;
             background: var(--bg-color);
-            transition: background 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--cb), transform 0.8s var(--cb), background 0.4s ease, color 0.4s ease;
         }
 
-        /* Hover animation remains punchy */
+        .active .card { opacity: 1; transform: translateY(0); }
+
         .card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 0;
             background: var(--primary-blue);
-            transition: height 0.3s ease;
+            transition: height 0.4s var(--cb);
+            z-index: 0;
         }
+
         .card:hover::before { height: 100%; }
         .card:hover { color: white; }
+        .card:hover .card-num { color: white; opacity: 0.7; }
 
         .card-inner { position: relative; z-index: 1; }
-        .card-num { font-family: 'Syne', sans-serif; opacity: 0.3; display: block; margin-bottom: 20px; }
-        .card h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 10px; }
+        .card-num { 
+            font-family: 'Syne', sans-serif; 
+            opacity: 0.3; 
+            display: block; 
+            margin-bottom: 20px; 
+            font-size: 1.2rem;
+            transition: color 0.4s ease;
+        }
 
-        /* Media Query for Mobile Optimization */
+        .card h2 { 
+            font-family: 'Syne', sans-serif; 
+            font-size: 1.5rem; 
+            text-transform: uppercase; 
+            margin-bottom: 10px; 
+        }
+
+        .card p { color: var(--text-light); transition: color 0.4s ease; }
+        .card:hover p { color: white; }
+
         @media (max-width: 600px) {
             header { padding: 40px 5%; }
             .card { padding: 30px; }
-            h1 { margin-bottom: 1rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>The Exam<br>Archive.</h1>
+        <h1 id="main-title">The Exam<br>Archive.</h1>
     </header>
 
-    
     <main class="main-content">
-        <div class="grid">
-            <a href="#" class="card">
-                <div class="card-inner">
-                    <span class="card-num">01</span>
-                    <h2>Common Entrance</h2>
-                    <p>National baseline assessments for secondary transition.</p>
-                </div>
-            </a>
-            <a href="#" class="card">
-                <div class="card-inner">
-                    <span class="card-num">02</span>
-                    <h2>Cambridge Exam</h2>
-                    <p>International standard papers for primary foundation learners.</p>
-                </div>
-            </a>
-            <a href="#" class="card">
-                <div class="card-inner">
-                    <span class="card-num">03</span>
-                    <h2>Grade 4 Spring</h2>
-                    <p>Second term revision modules for Year 4 students.</p>
-                </div>
-            </a>
-            <a href="./Grade-5-Exam/index.html" class="card">
-                <div class="card-inner">
-                    <span class="card-num">04</span>
-                    <h2>Grade 5 Spring</h2>
-                    <p>Intensive preparatory sets for Year 5 promotional exams.</p>
-                </div>
-            </a>
-            <a href="#" class="card">
-                <div class="card-inner">
-                    <span class="card-num">05</span>
-                    <h2>TULIP Questions</h2>
-                    <p>Exclusive archive for TULIP scholarship entrance.</p>
-                </div>
-            </a>
-            <a href="#" class="card">
-                <div class="card-inner">
-                    <span class="card-num">06</span>
-                    <h2>Scholastic Prep</h2>
-                    <p>Elite-level competition drills for academic decathlons.</p>
-                </div>
-            </a>
-        </div>
+        <div class="grid" id="exam-grid"></div>
     </main>
+
+    <script>
+        const examData = [
+    { id: "01", title: "Common Entrance", desc: "National baseline assessments for secondary transition.", link: "#" },
+    { id: "02", title: "Cambridge Exam", desc: "International standard papers for primary foundation learners.", link: "#" },
+    { id: "03", title: "Grade 4 Spring", desc: "Second term revision modules for Year 4 students.", link: "#" },
+    { id: "04", title: "Grade 5 Spring", desc: "Intensive preparatory sets for Year 5 promotional exams.", link: "./Grade-5-Exam/index.html" },
+    { id: "05", title: "TULIP Questions", desc: "Exclusive archive for TULIP scholarship entrance.", link: "#" },
+    { id: "06", title: "Scholastic Prep", desc: "Elite-level competition drills for academic decathlons.", link: "#" },
+    { id: "07", title: "WAEC", desc: "West African Senior School Certificate Examination past papers and guides.", link: "#" }
+];
+
+
+        const grid = document.getElementById('exam-grid');
+        const title = document.getElementById('main-title');
+
+        // 1. Advanced Text Animation Logic
+        const splitText = (element) => {
+            const lines = element.innerHTML.split('<br>');
+            element.innerHTML = '';
+            
+            lines.forEach((line, lineIdx) => {
+                const lineDiv = document.createElement('div');
+                lineDiv.style.display = 'block';
+
+                line.split('').forEach((char, charIdx) => {
+                    const wrapper = document.createElement('span');
+                    wrapper.className = 'char-wrapper';
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.style.transitionDelay = `${(lineIdx * 0.2) + (charIdx * 0.03)}s`;
+                    wrapper.appendChild(span);
+                    lineDiv.appendChild(wrapper);
+                });
+                element.appendChild(lineDiv);
+            });
+        };
+
+        // 2. Dynamic Grid Injection
+        const initGrid = () => {
+            examData.forEach((item, index) => {
+                const card = document.createElement('a');
+                card.href = item.link;
+                card.className = 'card';
+                card.style.transitionDelay = `${0.5 + (index * 0.1)}s`;
+                
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <span class="card-num">${item.id}</span>
+                        <h2>${item.title}</h2>
+                        <p>${item.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        splitText(title);
+        initGrid();
+
+        window.onload = () => {
+            document.body.classList.add('active');
+        };
+    </script>
 </body>
 </html>
